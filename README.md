@@ -13,6 +13,7 @@ This package is not yet published to crates.io. Install directly from GitHub:
 ```toml
 [dependencies]
 salesforce_core = { git = "https://github.com/connve-labs/salesforce-rs" }
+salesforce_pubsub_v1 = { git = "https://github.com/connve-labs/salesforce-rs" }
 ```
 
 ## Examples
