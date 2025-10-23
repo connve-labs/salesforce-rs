@@ -1,7 +1,8 @@
 # Salesforce Rust SDK
 
-[![Test Suite](https://github.com/connve-labs/salesforce-rs/workflows/test/badge.svg)](https://github.com/connve/salesforce-rs/actions)
-[![Security Audit](https://github.com/connve-labs/salesforce-rs/workflows/security-audit/badge.svg)](https://github.com/connve/salesforce-rs/actions)
+[![Test Suite](https://github.com/connve-labs/salesforce-rs/actions/workflows/test.yml/badge.svg)](https://github.com/connve-labs/salesforce-rs/actions/workflows/test.yml)
+[![Security Audit](https://github.com/connve-labs/salesforce-rs/actions/workflows/security.yml/badge.svg)](https://github.com/connve-labs/salesforce-rs/actions/workflows/security.yml)
+[![Release](https://img.shields.io/github/v/release/connve-labs/salesforce-rs)](https://github.com/connve-labs/salesforce-rs/releases)
 
 Unofficial Rust SDK for the Salesforce API with support for OAuth2 authentication and Pub/Sub API.
 
