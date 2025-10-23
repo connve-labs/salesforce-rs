@@ -1,0 +1,65 @@
+name: Build and Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  detect-version:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      version: ${{ steps.version.outputs.version }}
+      tag: ${{ steps.detect-and-tag.outputs.tag }}
+      previous-tag: ${{ steps.detect-and-tag.outputs.previous-tag }}
+      version-changed: ${{ steps.detect-and-tag.outputs.tag != '' && steps.detect-and-tag.outputs.tag != steps.detect-and-tag.outputs.previous-tag }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Extract version from workspace Cargo.toml
+        id: version
+        run: |
+          VERSION=$(grep '^version = ' Cargo.toml | head -1 | sed 's/version = "\(.*\)"/\1/')
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Detect and tag new version
+        id: detect-and-tag
+        uses: salsify/action-detect-and-tag-new-version@v2
+        with:
+          version-command: |
+            grep '^version = ' Cargo.toml | head -1 | sed 's/version = "\(.*\)"/\1/'
+
+  create-release:
+    needs: detect-version
+    if: needs.detect-version.outputs.version-changed == 'true'
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Get commit message
+        id: commit
+        run: |
+          COMMIT_MSG=$(git log -1 --pretty=format:"%s")
+          echo "message=$COMMIT_MSG" >> $GITHUB_OUTPUT
+
+      - name: Create GitHub Release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+          tag_name: ${{ needs.detect-version.outputs.tag }}
+          release_name: Release ${{ needs.detect-version.outputs.tag }}
+          body: |
+            ## Changes in ${{ needs.detect-version.outputs.tag }}
+
+            - ${{ steps.commit.outputs.message }} (${{ github.sha }})
+          draft: false
+          prerelease: false

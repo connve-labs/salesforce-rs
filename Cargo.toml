@@ -1,0 +1,31 @@
+[workspace]
+resolver = "2"
+members = ["salesforce-core", "generated/salesforce_pubsub/v1"]
+
+[workspace.package]
+version = "0.1.0"
+authors = ["CONNVE"]
+license = "MPL-2.0"
+edition = "2021"
+publish = false
+
+[workspace.dependencies]
+tokio = { version = "1.48", features = ["full"] }
+tokio-stream = "0.1"
+tokio-util = "0.7"
+futures-util = "0.3"
+tonic = "0.14"
+prost = "0.14"
+prost-types = "0.14"
+tonic-build = "0.14"
+tonic-prost-build = "0.14"
+prost-build = "0.14"
+tonic-prost = "0.14"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+oauth2 = "5.0"
+reqwest = { version = "0.12", default-features = false, features = ["rustls-tls"] }
+thiserror = "2.0"
+url = "2.5"
+bytes = "1.5"
+tracing = "0.1"

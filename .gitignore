@@ -1,0 +1,6 @@
+/target
+/local
+.cargo/
+.idea/
+.DS_Store
+.git

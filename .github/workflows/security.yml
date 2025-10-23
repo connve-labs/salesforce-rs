@@ -1,0 +1,29 @@
+name: Security Audit
+
+on:
+  pull_request:
+    branches:
+      - main
+  schedule:
+    # Run security audit daily at 9:00 AM UTC
+    - cron: '0 9 * * *'
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          submodules: recursive
+
+      - uses: actions-rs/toolchain@v1
+        with:
+          toolchain: stable
+          override: true
+
+      - name: Install cargo-audit
+        run: cargo install cargo-audit
+
+      - name: Run security audit
+        run: cargo audit
+

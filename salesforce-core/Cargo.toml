@@ -1,0 +1,28 @@
+[package]
+name = "salesforce_core"
+version.workspace = true
+authors.workspace = true
+license.workspace = true
+edition.workspace = true
+publish.workspace = true
+
+[lib]
+name = "salesforce_core"
+path = "src/lib.rs"
+
+[dependencies]
+tokio = { workspace = true }
+tokio-stream = { workspace = true }
+thiserror = { workspace = true }
+url = { workspace = true }
+salesforce_pubsub_v1 = { path = "../generated/salesforce_pubsub/v1" }
+oauth2 = { workspace = true }
+reqwest = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tonic = { workspace = true }
+tracing = { workspace = true }
+
+[[example]]
+name = "salesforce-pubsub"
+path = "../examples/salesforce-pubsub/main.rs"
