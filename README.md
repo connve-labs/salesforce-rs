@@ -1,95 +1,17 @@
 # Salesforce Rust SDK
 
-[![Test Suite](https://github.com/connve/salesforce-rs/workflows/test/badge.svg)](https://github.com/connve/salesforce-rs/actions)
-[![Security Audit](https://github.com/connve/salesforce-rs/workflows/security-audit/badge.svg)](https://github.com/connve/salesforce-rs/actions)
+[![Test Suite](https://github.com/connve-labs/salesforce-rs/workflows/test/badge.svg)](https://github.com/connve/salesforce-rs/actions)
+[![Security Audit](https://github.com/connve-labs/salesforce-rs/workflows/security-audit/badge.svg)](https://github.com/connve/salesforce-rs/actions)
 
 Unofficial Rust SDK for the Salesforce API with support for OAuth2 authentication and Pub/Sub API.
 
 ## Installation
 
+This package is not yet published to crates.io. Install directly from GitHub:
+
 ```toml
 [dependencies]
-salesforce_core = "0.1.0"
-```
-
-## Quick Start
-
-### Client Credentials Flow
-
-```rust
-use salesforce_core::client::{self, Credentials, AuthFlow};
-
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let client = client::Builder::new()
-        .credentials(Credentials {
-            client_id: "your_client_id".to_string(),
-            client_secret: Some("your_client_secret".to_string()),
-            username: None,
-            password: None,
-            instance_url: "https://your-instance.salesforce.com".to_string(),
-            tenant_id: "your_tenant_id".to_string(),
-        })
-        .auth_flow(AuthFlow::ClientCredentials)
-        .build()?
-        .connect()
-        .await?;
-
-    Ok(())
-}
-```
-
-### Username-Password Flow
-
-```rust
-use salesforce_core::client::{self, Credentials, AuthFlow};
-
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let client = client::Builder::new()
-        .credentials(Credentials {
-            client_id: "your_client_id".to_string(),
-            client_secret: Some("your_client_secret".to_string()),
-            username: Some("user@example.com".to_string()),
-            password: Some("your_password".to_string()),
-            instance_url: "https://your-instance.salesforce.com".to_string(),
-            tenant_id: "your_tenant_id".to_string(),
-        })
-        .auth_flow(AuthFlow::UsernamePassword)
-        .build()?
-        .connect()
-        .await?;
-
-    Ok(())
-}
-```
-
-### Loading Credentials from File
-
-```rust
-use salesforce_core::client;
-use std::path::PathBuf;
-
-#[tokio::main]
-async fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let client = client::Builder::new()
-        .credentials_path(PathBuf::from("credentials.json"))
-        .build()?
-        .connect()
-        .await?;
-
-    Ok(())
-}
-```
-
-**credentials.json:**
-```json
-{
-  "client_id": "your_client_id",
-  "client_secret": "your_client_secret",
-  "instance_url": "https://your-instance.salesforce.com",
-  "tenant_id": "your_tenant_id"
-}
+salesforce_core = { git = "https://github.com/connve-labs/salesforce-rs" }
 ```
 
 ## Examples
